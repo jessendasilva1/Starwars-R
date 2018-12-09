@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Star Wars RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poller+One" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<body background="assets/starwarsBackground.jpg" style="background-size:auto 100% auto;">
+    <div id="rootDiv" style="height: 100vh;" class="container-fluid">
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h1> Star Wars RPG Game! </h1>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="d-flex flex-row characterDiv">
+
+            </div>
+
+            <div class="d-flex flex-row">
+
+                <div class="d-flex flex-column infoCards">
+                    <h2>Your Character</h2>
+                    <div id="currentPlayer" class="d-flex flex-row newGame">
+
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column infoCards">
+                    <h2>Defender</h2>
+                    <div id="defenderPlayer" class="d-flex flex-row newGame">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="infoCards">
+                <h2>Fight Section</h2>
+                <button id="battleButton" onclick="battle()" disabled="true"> Attack </button>
+                <div class="battleInfo newGame">
+
+                </div>
+            </div>
+
+            <br>
+            <div class="d-flex flex-column">
+                <h2>Enemies Available to Attack</h2>
+                <div id="enemiesDiv" class="d-flex flex-row newGame">
+
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            startGame();
+        </script>
+
+    </div>
+
+</body>
+
+</html>
