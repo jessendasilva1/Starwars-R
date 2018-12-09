@@ -1,6 +1,7 @@
 // Health is between 100-200
-// Attack Power is between 1-10
-// Counter Attack Power is between 1-30
+// Attack Power is between 1-15
+// Counter Attack Power is between 1-15
+
 var availableCharacters = createCharacters();
 
 var currentPlayer;
@@ -16,29 +17,29 @@ function createCharacters() {
             name: "Chewbacca",
             picture: "chewbacca.jpg",
             health: getRandomInt(100, 200),
-            attackPower: getRandomInt(1, 10),
-            counterAttackPower: getRandomInt(1, 30),
+            attackPower: getRandomInt(1, 15),
+            counterAttackPower: getRandomInt(1, 15),
         },
         {
             name: "Yoda",
             picture: "yoda.jpg",
             health: getRandomInt(100, 200),
-            attackPower: getRandomInt(1, 10),
-            counterAttackPower: getRandomInt(1, 30),
+            attackPower: getRandomInt(1, 15),
+            counterAttackPower: getRandomInt(1, 15),
         },
         {
             name: "GeneralGrevious",
             picture: "generalGrevious.jpg",
             health: getRandomInt(100, 200),
-            attackPower: getRandomInt(1, 10),
-            counterAttackPower: getRandomInt(1, 30),
+            attackPower: getRandomInt(1, 15),
+            counterAttackPower: getRandomInt(1, 15),
         },
         {
             name: "JabbaTheHut",
             picture: "jabbaTheHut.jpg",
             health: getRandomInt(100, 200),
-            attackPower: getRandomInt(1, 10),
-            counterAttackPower: getRandomInt(1, 30),
+            attackPower: getRandomInt(1, 15),
+            counterAttackPower: getRandomInt(1, 15),
         }]
         resolve(characters);
     });
@@ -52,6 +53,9 @@ function startGame() {
         availableCharacters = thing;
         console.log(availableCharacters);
         enemies = [];
+        currentDefender = null;
+        currentPlayer = null;
+        multiplier = 1;
         $("#battleButton").attr("disabled", true);
         $(".newGame").empty();
         for (var i = 0; i < availableCharacters.length; i++) {
@@ -133,6 +137,7 @@ function currentDefenderHero(enemy) {
 }
 
 function enemySelect(element) {
+    console.log(currentDefender);
     if (!currentDefender) {
         enemies.forEach(function (enemy, index) {
             if (enemy.name === element.id) {
@@ -141,6 +146,7 @@ function enemySelect(element) {
                 availableEnemies();
 
                 console.log("currentDefender: " + enemy);
+                $(".battleInfo").empty();
                 console.log(enemies);
                 console.log(enemy.name);
             }
@@ -154,7 +160,7 @@ function updateHealth() {
     currentHero();
 }
 
-function checkHealth() {
+function checkHealth(defender) {
 
     if (currentPlayer.health <= 0) {
         $("#battleButton").attr("disabled", true);
@@ -166,8 +172,26 @@ function checkHealth() {
             </div>
         `);
     }
-    else if (currentDefender.health <= 0) {
-
+    else if (defender.health <= 0) {
+        if (enemies.length <= 0) {
+            console.log("you win!");
+            $("#battleButton").attr("disabled", true);
+            $(".battleInfo").empty();
+            $(".battleInfo").append(`
+                <div>
+                You have won the game... GAME OVER!!!!
+                <button onclick="restartGame()">Restart</button>
+                </div>
+            `);
+        }
+        else {
+            $("#battleButton").attr("disabled", true);
+            $(".battleInfo").empty();
+            $(".battleInfo").append(`<h4>You defeated ${defender.name}. Select your next opponent? </h4>`);
+            currentDefender = null;
+            console.log(currentDefender);
+            $("#defenderPlayer").empty();
+        }
     }
 }
 
@@ -182,7 +206,7 @@ function battle() {
         $(".battleInfo").append(`<h4>You attacked ${currentDefender.name} for ${playerAttackPower} damage.</h4>`);
         $(".battleInfo").append(`<h4>${currentDefender.name} attacked you for ${currentDefender.counterAttackPower} damage.</h4>`);
         updateHealth(currentDefender);
-        checkHealth();
+        checkHealth(currentDefender);
 
     }
 }
