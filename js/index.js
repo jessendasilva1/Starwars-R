@@ -10,7 +10,7 @@ var enemies = [];
 var multiplier = 1;
 
 function createCharacters() {
-    console.log("create new characters");
+    //console.log("create new characters");
     availableCharacters = [];
     return new Promise(function (resolve, reject) {
         var characters = [{
@@ -51,7 +51,7 @@ function startGame() {
     promise.then(function (thing) {
         //console.log(JSON.stringify(thing));
         availableCharacters = thing;
-        console.log(availableCharacters);
+        //console.log(availableCharacters);
         enemies = [];
         currentDefender = null;
         currentPlayer = null;
@@ -88,8 +88,8 @@ function characterSelect(character) {
         }
     }
     movePlayers();
-    console.log(currentPlayer);
-    console.log(enemies);
+    //console.log(currentPlayer);
+    //console.log(enemies);
 }
 
 function movePlayers() {
@@ -137,7 +137,7 @@ function currentDefenderHero(enemy) {
 }
 
 function enemySelect(element) {
-    console.log(currentDefender);
+    //console.log(currentDefender);
     if (!currentDefender) {
         enemies.forEach(function (enemy, index) {
             if (enemy.name === element.id) {
@@ -145,10 +145,10 @@ function enemySelect(element) {
                 enemies.splice(index, 1);
                 availableEnemies();
 
-                console.log("currentDefender: " + enemy);
+                //console.log("currentDefender: " + enemy);
                 $(".battleInfo").empty();
-                console.log(enemies);
-                console.log(enemy.name);
+                //console.log(enemies);
+                //console.log(enemy.name);
             }
         })
     }
@@ -174,7 +174,7 @@ function checkHealth(defender) {
     }
     else if (defender.health <= 0) {
         if (enemies.length <= 0) {
-            console.log("you win!");
+            //console.log("you win!");
             $("#battleButton").attr("disabled", true);
             $(".battleInfo").empty();
             $(".battleInfo").append(`
@@ -189,7 +189,7 @@ function checkHealth(defender) {
             $(".battleInfo").empty();
             $(".battleInfo").append(`<h4>You defeated ${defender.name}. Select your next opponent? </h4>`);
             currentDefender = null;
-            console.log(currentDefender);
+            //console.log(currentDefender);
             $("#defenderPlayer").empty();
         }
     }
@@ -197,7 +197,7 @@ function checkHealth(defender) {
 
 function battle() {
     var playerAttackPower = currentPlayer.attackPower * multiplier;
-    console.log("playerPower: " + playerAttackPower);
+    //console.log("playerPower: " + playerAttackPower);
     if (currentPlayer && currentDefender) {
         currentDefender.health = currentDefender.health - playerAttackPower;
         currentPlayer.health = currentPlayer.health - currentDefender.counterAttackPower;
